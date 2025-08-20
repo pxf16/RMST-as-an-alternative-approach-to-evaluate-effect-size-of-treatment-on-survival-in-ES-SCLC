@@ -1,0 +1,23 @@
+options ls = 78;
+libname fu "./data";
+data w;
+	set fu.surv4sclc;
+	if flag4io = 1;;
+	/* One study - Cheng Extentorch without OR, so no wgt */
+proc corr nosimple;
+        weight wgt;
+        var difforr logOR;
+        with logHR1 logHR2 rmstdiff1 rmstdiff2;
+proc corr nosimple;
+        weight wgtos;
+        var logHR1 logHR2;
+proc corr nosimple;
+        weight wgtos;
+        var rmstdiff1 rmstdiff2;
+proc corr nosimple;
+        weight wgtos;
+        var logHR1 rmstdiff1 logrmst1;
+proc corr nosimple;
+        weight wgtos;
+        var logHR2 rmstdiff2 logrmst2;
+run;
